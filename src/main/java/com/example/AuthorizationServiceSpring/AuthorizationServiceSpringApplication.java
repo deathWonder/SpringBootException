@@ -14,9 +14,9 @@ public class AuthorizationServiceSpringApplication implements WebMvcConfigurer {
     public static void main(String[] args) {
         SpringApplication.run(AuthorizationServiceSpringApplication.class, args);
     }
+
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        UserInfoResolver userInfoResolver = new UserInfoResolver();
-        argumentResolvers.add(userInfoResolver);
+        argumentResolvers.add(new UserInfoResolver());
     }
 }

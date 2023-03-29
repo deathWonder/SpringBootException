@@ -9,9 +9,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class UserInfoResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -23,23 +20,12 @@ public class UserInfoResolver implements HandlerMethodArgumentResolver {
 
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         assert request != null;
-        Map<String, String > queries = getQueryMap(request.getQueryString());
-        String user = queries.get("user");
-        String password = queries.get("password");
+
+        String user = nativeWebRequest.getParameter("user");
+        String password = nativeWebRequest.getParameter("password");
         return new User(user, password);
     }
-    private Map<String, String> getQueryMap(String query)
-    {
-        String[] params = query.split("&");
-        Map<String, String> map = new HashMap<>();
-        for (String param : params)
-        {
-            String name = param.split("=")[0];
-            String value = param.split("=")[1];
-            map.put(name, value);
-        }
-        return map;
-    }
+
 }
 
 
