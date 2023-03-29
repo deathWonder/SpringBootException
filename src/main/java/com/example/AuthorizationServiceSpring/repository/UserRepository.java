@@ -1,22 +1,32 @@
 package com.example.AuthorizationServiceSpring.repository;
 
 
+import com.example.AuthorizationServiceSpring.model.Authorities;
+import com.example.AuthorizationServiceSpring.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @Repository
 public class UserRepository {
-    ConcurrentHashMap<String, String> userAuthorities = new ConcurrentHashMap<>();
+    private final CopyOnWriteArrayList<User> userHasAuthorities;
 
-    public List<Authorities> getUserAuthorities(String user, String password) {
-        if (userAuthorities.containsKey(user)) {
-            if (userAuthorities.get(user).equals(password)) {
-                return List.of(Authorities.READ, Authorities.WRITE, Authorities.DELETE);
+    public UserRepository() {
+        this.userHasAuthorities = new CopyOnWriteArrayList<>(new User[]{
+                new User("Sabir", "12345", List.of(Authorities.WRITE, Authorities.DELETE)),
+                new User("Ribas", "54321", List.of(Authorities.READ))
+        });
+    }
+
+    public List<Authorities> getUserAuthorities(User user) {
+        if (userHasAuthorities.contains(user)) {
+            for (User visitor : userHasAuthorities
+            ) {
+                if (visitor.equals(user))
+                    return visitor.getPrivileges();
             }
         }
-        return new ArrayList<>();
+        return List.of(Authorities.NO_RIGHTS);
     }
 }

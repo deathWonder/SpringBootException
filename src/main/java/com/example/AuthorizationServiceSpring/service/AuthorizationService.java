@@ -3,8 +3,8 @@ package com.example.AuthorizationServiceSpring.service;
 import com.example.AuthorizationServiceSpring.AuthorizationServiceSpringApplication;
 import com.example.AuthorizationServiceSpring.exception.InvalidCredentials;
 import com.example.AuthorizationServiceSpring.exception.UnauthorizedUser;
-import com.example.AuthorizationServiceSpring.repository.Authorities;
-import com.example.AuthorizationServiceSpring.repository.User;
+import com.example.AuthorizationServiceSpring.model.Authorities;
+import com.example.AuthorizationServiceSpring.model.User;
 import com.example.AuthorizationServiceSpring.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +31,7 @@ public class AuthorizationService {
             log.info("User name or password is empty");
             throw new InvalidCredentials("User name or password is empty");
         }
-        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user, password);
+        List<Authorities> userAuthorities = userRepository.getUserAuthorities(visitor);
         if (isEmpty(userAuthorities)) {
             throw new UnauthorizedUser("Unknown user " + user);
         }

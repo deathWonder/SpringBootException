@@ -1,10 +1,10 @@
 package com.example.AuthorizationServiceSpring.controller;
 
 
-import com.example.AuthorizationServiceSpring.repository.Authorities;
-import com.example.AuthorizationServiceSpring.repository.User;
+import com.example.AuthorizationServiceSpring.model.Authorities;
+import com.example.AuthorizationServiceSpring.model.User;
+import com.example.AuthorizationServiceSpring.model.UserInfo;
 import com.example.AuthorizationServiceSpring.service.AuthorizationService;
-import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/authorize")
-    public List<Authorities> getAuthorities(@Valid User user) {
+    public List<Authorities> getAuthorities(@UserInfo User user) {
         return service.getAuthorities(user);
     }
 }
