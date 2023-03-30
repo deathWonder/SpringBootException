@@ -1,17 +1,11 @@
 package com.example.AuthorizationServiceSpring.model;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import java.util.List;
 import java.util.Objects;
 
 public class User {
-    @NotBlank
-    @Size(min = 5, max = 20)
+
     private String user;
-    @NotBlank
-    @Size(min = 5, max = 20)
     private String password;
     List<Authorities> privileges;
 

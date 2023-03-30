@@ -1,6 +1,6 @@
 package com.example.AuthorizationServiceSpring;
 
-import com.example.AuthorizationServiceSpring.service.UserInfoResolver;
+import com.example.AuthorizationServiceSpring.service.UserValidator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -17,6 +17,6 @@ public class AuthorizationServiceSpringApplication implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new UserInfoResolver());
+        argumentResolvers.add(new UserValidator());
     }
 }
