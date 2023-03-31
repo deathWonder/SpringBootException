@@ -33,11 +33,11 @@ public class UserValidator implements HandlerMethodArgumentResolver {
             log.info("User name or password is empty");
             throw new InvalidCredentials("User name or password is empty");
         }
-        if (user.length() <= 2 || user.length() > 20) {
+        if (user.length() < 2 || user.length() > 20) {
             log.info("Incorrect user - длина меньше 2 символов и больше 20");
             throw new InvalidCredentials("Incorrect user - длина меньше 2 символов и больше 20");
         }
-        if (password.length() <= 2 || password.length() > 20) {
+        if (password.length() < 2 || password.length() > 20) {
             log.info("Incorrect password - длина меньше 2 символов и больше 20");
             throw new InvalidCredentials("Incorrect password - длина меньше 2 символов и больше 20");
         }
