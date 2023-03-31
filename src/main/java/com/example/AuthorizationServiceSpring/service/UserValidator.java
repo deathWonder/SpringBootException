@@ -1,6 +1,5 @@
 package com.example.AuthorizationServiceSpring.service;
 
-import com.example.AuthorizationServiceSpring.AuthorizationServiceSpringApplication;
 import com.example.AuthorizationServiceSpring.exception.InvalidCredentials;
 import com.example.AuthorizationServiceSpring.model.User;
 import org.slf4j.Logger;
@@ -15,7 +14,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class UserValidator implements HandlerMethodArgumentResolver {
 
     static final Logger log =
-            LoggerFactory.getLogger(AuthorizationServiceSpringApplication.class);
+            LoggerFactory.getLogger(UserValidator.class);
 
     @Override
     public boolean supportsParameter(MethodParameter methodParameter) {
@@ -35,12 +34,12 @@ public class UserValidator implements HandlerMethodArgumentResolver {
             throw new InvalidCredentials("User name or password is empty");
         }
         if (user.length() <= 2 || user.length() > 20) {
-            log.info("User name or password is empty");
-            throw new InvalidCredentials("Incorrect user");
+            log.info("Incorrect user - длина меньше 2 символов и больше 20");
+            throw new InvalidCredentials("Incorrect user - длина меньше 2 символов и больше 20");
         }
         if (password.length() <= 2 || password.length() > 20) {
-            log.info("User name or password is empty");
-            throw new InvalidCredentials("Incorrect password");
+            log.info("Incorrect password - длина меньше 2 символов и больше 20");
+            throw new InvalidCredentials("Incorrect password - длина меньше 2 символов и больше 20");
         }
 
         return new User(user, password);

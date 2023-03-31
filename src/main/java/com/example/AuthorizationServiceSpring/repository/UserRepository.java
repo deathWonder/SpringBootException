@@ -1,10 +1,12 @@
 package com.example.AuthorizationServiceSpring.repository;
 
 
+import com.example.AuthorizationServiceSpring.exception.UnauthorizedUser;
 import com.example.AuthorizationServiceSpring.model.Authorities;
 import com.example.AuthorizationServiceSpring.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -19,14 +21,18 @@ public class UserRepository {
         });
     }
 
-    public List<Authorities> getUserAuthorities(User user) {
-        if (userHasAuthorities.contains(user)) {
-            for (User visitor : userHasAuthorities
-            ) {
-                if (visitor.equals(user))
-                    return visitor.getPrivileges();
+    public List<Authorities> getUserAuthorities(User visitor) {
+       String user = visitor.getUser();
+       String password = visitor.getPassword();
+
+        for (User guest: userHasAuthorities
+             ) {
+            if(guest.getUser().equals(user)){
+                if(guest.getPassword().equals(password))
+                    return guest.getPrivileges();
+                else throw new UnauthorizedUser("User name or password is incorrect");
             }
         }
-        return List.of(Authorities.NO_RIGHTS);
+        return new ArrayList<>();
     }
 }
