@@ -24,13 +24,13 @@ class AuthorizationServiceSpringApplicationTests {
             .withExposedPorts(8080);
     @Container
     private final GenericContainer<?> prodapp = new GenericContainer<>("prodapp")
-            .withExposedPorts(8080);
+            .withExposedPorts(8081);
 
 
     @Test
     void contextLoads() {
         Integer devappPort = devapp.getMappedPort(8080);
-        Integer prodappPort = prodapp.getMappedPort(8080);
+        Integer prodappPort = prodapp.getMappedPort(8081);
 
 
         ResponseEntity<String> entityFromDevapp = restTemplate.getForEntity(
