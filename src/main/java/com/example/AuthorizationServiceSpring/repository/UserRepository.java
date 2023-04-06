@@ -22,13 +22,13 @@ public class UserRepository {
     }
 
     public List<Authorities> getUserAuthorities(User visitor) {
-       String user = visitor.getUser();
-       String password = visitor.getPassword();
+        String user = visitor.getUser();
+        String password = visitor.getPassword();
 
-        for (User guest: userHasAuthorities
-             ) {
-            if(guest.getUser().equals(user)){
-                if(guest.getPassword().equals(password))
+        for (User guest : userHasAuthorities
+        ) {
+            if (guest.getUser().equals(user)) {
+                if (guest.getPassword().equals(password))
                     return guest.getPrivileges();
                 else throw new UnauthorizedUser("User name or password is incorrect");
             }
